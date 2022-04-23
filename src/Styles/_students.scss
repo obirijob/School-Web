@@ -1,46 +1,68 @@
 @import "./colors";
 
-.students{
-
-    .options{
-        display: flex;
-        align-items: center;
-        .option{
-            margin: 0 5px;
-            padding: 7px 10px;
-            border: solid 1.5px $black;
-            background: $black;
-            color: $light;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: $dark 0 0 20px;
-            display: flex;
-            align-items: center;
-            transition: .3s ease-in-out;
-            &:hover{
-                background: $light;
-                color: $black;
-            }
-            span{
-                font-size: small;
-                margin-left: 5px;
-            }
-        }
+.students {
+  .options {
+    display: flex;
+    align-items: center;
+    .option {
+      margin: 0 5px;
+      padding: 7px 10px;
+      border: solid 1.5px $black;
+      background: $black;
+      color: $light;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: $dark 0 0 20px;
+      display: flex;
+      align-items: center;
+      transition: 0.3s ease-in-out;
+      &:hover {
+        background: $light;
+        color: $black;
+      }
+      span {
+        font-size: small;
+        margin-left: 5px;
+      }
     }
-    .list{
-        margin: 10px 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        .student{
-            background: $dark;
-            width: 150px;
-            height: 150px;
-            padding: 5px;
-            border-radius: 5px;
-            box-shadow: $dark 0 0 20px;
-        }
+  }
+  .list {
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    .student {
+      position: relative;
+      background: $dark;
+      width: 150px;
+      height: 150px;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: $dark 0 0 10px;
+      color: $white;
+      display: flex;
+      flex-direction: column;
+
+      .adm {
+        // position: absolute;
+        top: 5px;
+        right: 5px;
+        font-family: "Courier New", Courier, monospace;
+        font-size: xx-large;
+        text-align: end;
+      }
+      .photo {
+        width: 80px;
+        height: 80px;
+        background: $light;
+        align-self: center;
+        border-radius: 5px;
+        box-shadow: $black 0 0 10px;
+      }
+      .name {
+        text-transform: uppercase;
+        margin-top: 10px;
+      }
     }
-
-
+  }
 }

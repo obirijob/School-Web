@@ -4,6 +4,7 @@ import LoadBE from "../Helpers/LoadBE"
 import { DotFilledIcon, PlusIcon } from "@radix-ui/react-icons"
 import Modal from "./Modal"
 import Combo from "./Combo"
+import { backendUrl } from "../Helpers/Constants"
 
 function Students() {
   const [students, setStudents] = useState([])
@@ -13,6 +14,7 @@ function Students() {
   const [parentAdd, setParentAdd] = useState(null)
   const [nameAdd, setNameAdd] = useState("")
   const [addError, setAddError] = useState(null)
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     loadStd()
@@ -63,7 +65,7 @@ function Students() {
         <>
           <Modal title="Add Student" shown={add} hide={() => setAdd(false)}>
             <form
-              onSubmit={async (e) => {
+              onSubmit={async e => {
                 e.preventDefault()
                 setAddError(null)
                 if (parentAdd) {
@@ -85,7 +87,7 @@ function Students() {
             >
               {addError && (
                 <div className="error">
-                  {addError.map((e) => (
+                  {addError.map(e => (
                     <span>{e.message}</span>
                   ))}
                 </div>
@@ -95,7 +97,7 @@ function Students() {
                 <input
                   type="text"
                   id="name"
-                  onInput={(e) => setNameAdd(e.target.value)}
+                  onInput={e => setNameAdd(e.target.value)}
                 />
               </div>
               <div className="input">
@@ -104,17 +106,20 @@ function Students() {
                   items={parents}
                   label="name"
                   sub="email"
-                  setSelected={(p) => setParentAdd(p)}
+                  setSelected={p => setParentAdd(p)}
                 />
               </div>
               <button className="option">Add</button>
             </form>
           </Modal>
           <div className="list">
-            {students.map(({ admissionNumber, name }) => (
+            {students.map(({ admissionNumber, name, photo }) => (
               <div className="student" key={admissionNumber + "std"}>
                 <div className="adm">
                   {admissionNumber.toString().padStart("4", 0)}
+                </div>
+                <div className="photo">
+                  <img src={`${backendUrl}${photo}`} alt="" srcset="" />
                 </div>
                 <div className="name">{name}</div>
               </div>
