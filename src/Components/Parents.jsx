@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Search from "./Search"
 import LoadBE from "../Helpers/LoadBE"
-import { DotFilledIcon, PlusIcon } from "@radix-ui/react-icons"
+import { DotFilledIcon, PersonIcon, PlusIcon } from "@radix-ui/react-icons"
 import Modal from "./Modal"
 
 function Parents() {
@@ -13,6 +13,7 @@ function Parents() {
   const [email, setEmail] = useState("")
   const [isMale, setIsMale] = useState(true)
   const [error, setError] = useState(null)
+  const [search, setSearch] = useState("")
   useEffect(() => {
     loadStd()
   }, [])
@@ -36,7 +37,7 @@ function Parents() {
     <div className="students">
       <div className="title">Parents</div>
       <div className="options">
-        <Search placeholder="Find a Parent" />
+        <Search placeholder="Find a Parent" setText={s => setSearch(s)} />
         <div className="option" onClick={() => setAddModal(true)}>
           <PlusIcon />
           <span>Add Parent</span>
@@ -115,11 +116,43 @@ function Parents() {
             </form>
           </Modal>
           <div className="list">
-            {students.map(({ email, name }) => (
-              <div className="student" key={email + "parent"}>
-                <div className="name">{name}</div>
-              </div>
-            ))}
+            {students
+              .filter(
+                ({ email, name, students, phone }) =>
+                  name.toLowerCase().includes(search) ||
+                  email.toLowerCase().includes(search) ||
+                  phone.toString().includes(search)
+              )
+              .map(({ email, name, students, phone }) => (
+                <div
+                  className="student"
+                  key={email + "parent"}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PersonIcon style={{ transform: "scale(4)", margin: 20 }} />
+                  <div className="name">{name}</div>
+                  <div
+                    title={students.map(({ name }) => name.toUpperCase())}
+                    className="details"
+                    style={{ marginTop: 5, fontSize: "small" }}
+                  >
+                    {`${students.length.toLocaleString()} Students`}
+                  </div>
+                  <div style={{ fontSize: "small" }}>
+                    <li>
+                      <a href={`mailto://${email}`}>{email}</a>
+                    </li>
+                    <li>
+                      <a href={`tel://${phone}`}>{phone}</a>
+                    </li>
+                  </div>
+                </div>
+              ))}
           </div>
         </>
       )}

@@ -34,8 +34,8 @@
     .student {
       position: relative;
       background: $dark;
-      width: 150px;
-      height: 150px;
+      width: 180px;
+      height: 180px;
       padding: 5px;
       border-radius: 5px;
       box-shadow: $dark 0 0 10px;
@@ -54,14 +54,93 @@
       .photo {
         width: 80px;
         height: 80px;
-        background: $light;
+        // background: $light;
         align-self: center;
         border-radius: 5px;
-        box-shadow: $black 0 0 10px;
+        // box-shadow: $black 0 0 10px;
+        overflow: hidden;
+        // background: $light;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // box-shadow: inset $white 0 0 50px;
+        // padding: 10px;
+        img {
+          width: 80px;
+          height: 80px;
+          object-fit: contain;
+        }
       }
       .name {
         text-transform: uppercase;
         margin-top: 10px;
+      }
+    }
+  }
+}
+
+.student {
+  .std {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+
+    .photo-d {
+      // border: solid 1px $black;
+      height: 320px;
+      width: 320px;
+      border-radius: 5px;
+      box-shadow: transparentize($dark, 0.6) 0 0 30px;
+      background: transparentize($white, 0.8);
+      &:hover {
+        .std_photo {
+          opacity: 1;
+        }
+      }
+      .std_photo {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: $black;
+        color: $white;
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: $black 0 0 30px;
+        opacity: 0.2;
+        transition: 0.5s ease-in-out;
+      }
+    }
+
+    .class-d {
+      min-width: 400px;
+      max-width: 400px;
+      // background: transparentize($dark, 0.6);
+      height: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: transparentize($dark, 0.6) 0 0 30px;
+    }
+    .parent-d {
+      background: transparentize($dark, 0.6);
+      min-width: 400px;
+      max-width: 400px;
+      height: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: transparentize($dark, 0.6) 0 0 30px;
+      .par-name {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-transform: capitalize;
+        margin: 5px;
+        svg {
+          margin-right: 5px;
+        }
       }
     }
   }

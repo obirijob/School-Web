@@ -5,6 +5,7 @@ import { DotFilledIcon, PlusIcon } from "@radix-ui/react-icons"
 import Modal from "./Modal"
 import Combo from "./Combo"
 import { backendUrl } from "../Helpers/Constants"
+import { NavLink } from "react-router-dom"
 
 function Students() {
   const [students, setStudents] = useState([])
@@ -51,7 +52,7 @@ function Students() {
     <div className="students">
       <div className="title">Students</div>
       <div className="options">
-        <Search placeholder="Find Student" />
+        <Search placeholder="Find Student" setText={e => setSearch(e)} />
         <div className="option" onClick={() => setAdd(true)}>
           <PlusIcon />
           <span>Add Student</span>
@@ -113,17 +114,34 @@ function Students() {
             </form>
           </Modal>
           <div className="list">
-            {students.map(({ admissionNumber, name, photo }) => (
-              <div className="student" key={admissionNumber + "std"}>
-                <div className="adm">
-                  {admissionNumber.toString().padStart("4", 0)}
-                </div>
-                <div className="photo">
-                  <img src={`${backendUrl}${photo}`} alt="" srcset="" />
-                </div>
-                <div className="name">{name}</div>
-              </div>
-            ))}
+            {students
+              .filter(
+                s =>
+                  s.admissionNumber.toString().includes(search) ||
+                  s.name.toLowerCase().includes(search)
+              )
+              .map(({ admissionNumber, name, photo, parent }) => (
+                <NavLink
+                  exact
+                  to={`/Students/${admissionNumber}`}
+                  className="student"
+                  key={admissionNumber + "std"}
+                >
+                  <div className="adm">
+                    {admissionNumber.toString().padStart("4", 0)}
+                  </div>
+                  <div className="photo">
+                    <img src={`${backendUrl}${photo}`} alt="" srcset="" />
+                  </div>
+                  <div className="name">{name}</div>
+                  <div
+                    className="details"
+                    style={{ fontSize: "small", textTransform: "capitalize" }}
+                  >
+                    {parent.name.toLowerCase()}
+                  </div>
+                </NavLink>
+              ))}
           </div>
         </>
       )}

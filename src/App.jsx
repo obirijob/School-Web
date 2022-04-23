@@ -6,6 +6,8 @@ import TopNav from "./Components/TopNav"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Students from "./Components/Students"
 import Parents from "./Components/Parents"
+import Classes from "./Components/Classes"
+import Student from "./Components/Student"
 
 function App() {
   const [loggedAs, setLoggedAs] = useState("none")
@@ -31,7 +33,9 @@ function App() {
           <div className="content">
             <Routes>
               <Route exact path="Students" element={<Students />} />
+              <Route exact path="Students/:adm" element={<Student />} />
               <Route exact path="Parents" element={<Parents />} />
+              <Route exact path="Classes" element={<Classes />} />
             </Routes>
           </div>
         </BrowserRouter>

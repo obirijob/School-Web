@@ -43,6 +43,9 @@ function TopNav({ loggedAs, reloadAuth }) {
         <NavLink className="link" to="/Parents">
           Parents
         </NavLink>
+        <NavLink className="link" to="/Classes">
+          Classes
+        </NavLink>
       </div>
       <div className="user" onClick={() => setDropdown(!dropdown)}>
         <div className="icon">
@@ -55,7 +58,7 @@ function TopNav({ loggedAs, reloadAuth }) {
         >
           <div className="roles">
             <ul>
-              {det.roles.map((r) => (
+              {det.roles.map(r => (
                 <li>{r}</li>
               ))}
             </ul>
