@@ -9,25 +9,25 @@
 
 @import "./Styles/colors";
 
-*{
+* {
   font-family: er;
 }
 
-body{
+body {
   margin: 0;
   box-sizing: border-box;
   background: $light;
   min-height: 100vh;
+  // transform: scale(1.2);
 }
 
-
-button{
+button {
   background: $black;
   color: $white;
   border: none;
   padding: 10px 25px;
   cursor: pointer;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 @import "./Styles/topnav";
