@@ -1,0 +1,37 @@
+@font-face {
+  font-family: er;
+  src: url(./Fonts/eculid/EuclidSquareRegular.ttf);
+}
+@font-face {
+  font-family: es;
+  src: url(./Fonts/eculid/EuclidSquareSemiBold.ttf);
+}
+
+@import "./Styles/colors";
+
+*{
+  font-family: er;
+}
+
+body{
+  margin: 0;
+  box-sizing: border-box;
+  background: $light;
+  min-height: 100vh;
+}
+
+
+button{
+  background: $black;
+  color: $white;
+  border: none;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 5px
+}
+
+@import "./Styles/topnav";
+@import "./Styles/students";
+@import "./Styles/search";
+@import "./Styles/modal";
+@import "./Styles/combo";

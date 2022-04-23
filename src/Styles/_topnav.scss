@@ -1,0 +1,98 @@
+@import "./colors";
+
+.topnav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+
+    .links{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .link{
+            transition: .3s ease-in-out;
+            margin: 5px;
+            padding: 5px 0px;
+            border-radius: 2px;
+            opacity: .6;
+
+            &:hover{
+                opacity: .8; 
+                letter-spacing: 1.2px;  
+            }
+
+            &.active{
+                opacity: 1;
+                background: $black;
+                color: $light;
+                padding: 5px 15px;
+                box-shadow: 0 0 10px $dark;
+                &:hover{
+                    letter-spacing: inherit;
+                }
+            }
+        }
+    }
+
+    .user{
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        cursor: pointer;
+        transition: .3s ease-in-out;
+        position: relative;
+        .dropdown{
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            border-radius: 5px;
+            border: solid 1px $dark;
+            background: $dark;
+            box-shadow: $dark 0 0 30px;
+            color: $light;
+            width: 120px;
+            ul{
+                margin: 0;
+                padding: 10px 20px;
+                font-size: small;
+                li{
+                    text-transform: capitalize;
+                }
+            }
+            .logout{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: $black;
+                color: $white;
+                margin: 5px;
+                padding: 5px 10px;
+                font-size: small;
+                border-radius: 5px;
+                width: calc(100% - 10px);
+            }
+        }
+        &:hover{
+            background: $dark;
+            color: $light;
+            border-radius: 3px;
+            box-shadow: $dark 0 0 30px;
+        }
+        .icon{
+            height: 25px;
+            width: 25px;
+            color: $light;
+            background: $dark;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        .name{
+            margin: 5px;
+            text-transform: capitalize;
+        }
+    }
+}

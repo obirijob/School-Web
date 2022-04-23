@@ -1,0 +1,46 @@
+@import "./colors";
+
+.students{
+
+    .options{
+        display: flex;
+        align-items: center;
+        .option{
+            margin: 0 5px;
+            padding: 7px 10px;
+            border: solid 1.5px $black;
+            background: $black;
+            color: $light;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: $dark 0 0 20px;
+            display: flex;
+            align-items: center;
+            transition: .3s ease-in-out;
+            &:hover{
+                background: $light;
+                color: $black;
+            }
+            span{
+                font-size: small;
+                margin-left: 5px;
+            }
+        }
+    }
+    .list{
+        margin: 10px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        .student{
+            background: $dark;
+            width: 150px;
+            height: 150px;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: $dark 0 0 20px;
+        }
+    }
+
+
+}

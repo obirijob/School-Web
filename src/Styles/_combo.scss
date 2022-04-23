@@ -1,0 +1,31 @@
+.combo{
+    position: relative;
+    .dropdown{
+        position: absolute;
+        background: $white;
+        box-shadow: 0px 5px 10px $black;
+        top: calc(100% + 5px);
+        width: fit-content;
+        min-width: 100px;
+        padding: 5px;
+        border-radius: 5px;
+        transition: .3s ease-in-out;
+        .item{
+            transition: .3s ease-in-out;
+            cursor: pointer;
+            margin: 2px 0;
+            border-radius: 2px;
+            .label{
+                font-size: small;
+            }
+            .sub{
+                font-size: x-small;
+            }
+            &:hover{
+                background: $black;
+                color: $white;
+                padding: 2px;
+            }
+        }
+    }
+}

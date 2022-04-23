@@ -1,0 +1,29 @@
+@import "./colors";
+
+.search{
+    display: flex;
+    margin: 5px 0px;
+    background: transparentize($white, .3);
+    width: fit-content;
+    padding: 5px;
+    box-shadow: transparentize($dark, .5) 0 0 30px;
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    border: solid 1.2px transparentize($white, .3);
+    &:focus-within{
+        background: $white;
+        border: solid 1.2px $dark;
+    }
+    .input{
+        display: flex;
+        align-items: center;
+        svg{
+            margin-right: 3px;
+        }
+        input{
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+    }
+}
