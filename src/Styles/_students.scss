@@ -43,6 +43,15 @@
       display: flex;
       flex-direction: column;
 
+      // this is for subjects
+      &.comp-sub {
+        background: $error;
+      }
+
+      &.normal-sub {
+        background: $success;
+      }
+
       .adm {
         // position: absolute;
         top: 5px;
@@ -80,6 +89,45 @@
 }
 
 .student {
+  .std-ss {
+    display: flex;
+    align-items: center;
+    .ds {
+      display: flex;
+      transition: 0.3s ease-in-out;
+      width: 0px;
+      opacity: 0;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+    &:hover {
+      .ds {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // background: $error;
+        color: $error;
+        font-size: smaller;
+        padding: 2px 5px;
+        width: 20px;
+        margin: 0 2px;
+        cursor: pointer;
+
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+  .st-sub-item {
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      text-decoration: underline;
+      color: $error;
+    }
+  }
   .std {
     display: flex;
     align-items: center;
@@ -90,11 +138,19 @@
 
     .photo-d {
       // border: solid 1px $black;
-      height: 320px;
-      width: 320px;
+      // height: 320px;
+      min-width: 420px;
+      max-width: 420px;
+      min-height: 370px;
+      max-height: 370px;
       border-radius: 5px;
       box-shadow: transparentize($dark, 0.6) 0 0 30px;
       background: transparentize($white, 0.8);
+      img {
+        height: 370px;
+        width: 420px;
+        object-fit: cover;
+      }
       &:hover {
         .std_photo {
           opacity: 1;
@@ -119,7 +175,7 @@
       min-width: 400px;
       max-width: 400px;
       // background: transparentize($dark, 0.6);
-      height: 300px;
+      height: 350px;
       padding: 10px;
       border-radius: 5px;
       box-shadow: transparentize($dark, 0.6) 0 0 30px;
@@ -128,7 +184,7 @@
       background: transparentize($dark, 0.6);
       min-width: 400px;
       max-width: 400px;
-      height: 300px;
+      height: 350px;
       padding: 10px;
       border-radius: 5px;
       box-shadow: transparentize($dark, 0.6) 0 0 30px;
@@ -142,6 +198,37 @@
           margin-right: 5px;
         }
       }
+    }
+  }
+}
+
+.grading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grades-table {
+  margin: 20px;
+  padding: 10px;
+  box-shadow: $black 0 0 1000px;
+  min-width: 600px;
+  border-radius: 10px;
+  .grades-title {
+    // background: $black;
+    color: $black;
+    * {
+      text-align: start;
+      padding: 5px;
+    }
+  }
+  .grades-row {
+    transition: 0.3s ease-in-out;
+    padding: 5px 10px;
+    &:hover {
+      background: transparentize($black, 0.8);
+      cursor: pointer;
     }
   }
 }

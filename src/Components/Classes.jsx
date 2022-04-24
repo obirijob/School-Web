@@ -3,6 +3,7 @@ import LoadBE from "../Helpers/LoadBE"
 import Search from "./Search"
 import { HomeIcon, PlusIcon } from "@radix-ui/react-icons"
 import Modal from "./Modal"
+import { NavLink } from "react-router-dom"
 
 function Classes() {
   useEffect(() => {
@@ -48,7 +49,7 @@ function Classes() {
               label.toLowerCase().includes(search)
           )
           .map(({ level, label, students }) => (
-            <div className="student">
+            <NavLink exact to={"/classes/" + level} className="student">
               <div className="adm">{level}</div>
               <HomeIcon
                 style={{
@@ -75,7 +76,7 @@ function Classes() {
               >
                 {students.length.toLocaleString()} Students
               </div>
-            </div>
+            </NavLink>
           ))}
       </div>
     </div>

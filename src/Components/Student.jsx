@@ -5,25 +5,34 @@ import LoadBE from "../Helpers/LoadBE"
 import Modal from "./Modal"
 import {
   CameraIcon,
+  CrossCircledIcon,
   HomeIcon,
   LinkedInLogoIcon,
   MobileIcon,
   PersonIcon,
+  PlusCircledIcon,
 } from "@radix-ui/react-icons"
 
 function Student() {
   const { adm } = useParams()
   useEffect(() => {
+    loadEverything()
+  }, [])
+
+  async function loadEverything() {
     loadStudent()
     myClass()
     classes()
-  }, [])
+    loadCSubjects()
+  }
 
   const [student, setStudent] = useState(null)
   const [mclass, setMclass] = useState(null)
   const [assign, setAssign] = useState(false)
   const [cls, setCls] = useState([])
   const [level, setLevel] = useState(null)
+  const [compsubjects, setCompsubjects] = useState([])
+  const [subj, setSubj] = useState([])
 
   async function loadStudent() {
     let { errors, data } = await LoadBE(`{
@@ -31,6 +40,11 @@ function Student() {
               name
               admissionNumber
               photo
+              subjects{
+                label
+                code
+                compulsory
+              }
               parent{
                   name
                   phone
@@ -45,6 +59,32 @@ function Student() {
     if (errors) {
     } else {
       setStudent(data.singleStudent)
+    }
+  }
+
+  async function loadCSubjects() {
+    let { errors, data } = await LoadBE(`{
+      compulsorySubjects{
+        label
+        code
+        compulsory
+      }
+    }`)
+    if (errors) {
+    } else {
+      setCompsubjects(data.compulsorySubjects)
+    }
+
+    let s = await LoadBE(`{
+        subjects{
+          label
+          code
+          compulsory
+        }
+      }`)
+    if (s.errors) {
+    } else {
+      setSubj(s.data.subjects)
     }
   }
 
@@ -177,6 +217,158 @@ function Student() {
                 <button className="option" onClick={() => setAssign(true)}>
                   Assign Class
                 </button>
+              </div>
+              <div className="subtitle" style={{ margin: "20px 0 10px 0" }}>
+                Subjects Taken ({[...compsubjects, ...student.subjects].length})
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {[...compsubjects, ...student.subjects].map((s, i) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: 5,
+                    }}
+                  >
+                    <span className="std-ss">
+                      <NavLink
+                        to={`/Subjects/${s.code}`}
+                        className="st-sub-item"
+                      >
+                        {s.label}
+                      </NavLink>
+                      <div
+                        className="ds"
+                        onClick={async () => {
+                          //console.log(s)
+                          if (s.compulsory) {
+                            alert(
+                              s.label.toUpperCase() +
+                                " is compulsory\n" +
+                                "You cannot remove a compulsory subject"
+                            )
+                          } else {
+                            let { errors, data } = await LoadBE(
+                              `mutation{studentRemoveSubject(admissionNumber: ${adm}, subject: "${s.code}"){label}}`
+                            )
+                            if (errors) {
+                              alert(
+                                `Failed to remove subject\n${errors.map(
+                                  e => e.message
+                                )}`
+                              )
+                            } else {
+                              alert("Subject Removed")
+                              loadEverything()
+                            }
+                          }
+                        }}
+                      >
+                        <CrossCircledIcon
+                          style={{
+                            marginRight: 2,
+                            marginLeft: 1,
+                          }}
+                        />
+                      </div>
+                    </span>
+                    {i < [...compsubjects, ...student.subjects].length - 1 &&
+                      (i ===
+                      [...compsubjects, ...student.subjects].length - 2 ? (
+                        <div style={{ margin: "0 3px" }}>&</div>
+                      ) : (
+                        `, `
+                      ))}
+                  </div>
+                ))}
+              </div>
+
+              <div className="subtitle" style={{ margin: "20px 0 10px 0" }}>
+                Other Subjects (
+                {
+                  [
+                    ...subj.filter(
+                      s =>
+                        ![...compsubjects, ...student.subjects]
+                          .map(st => st.code)
+                          .includes(s.code)
+                    ),
+                  ].length
+                }
+                )
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {[
+                  ...subj.filter(
+                    s =>
+                      ![...compsubjects, ...student.subjects]
+                        .map(st => st.code)
+                        .includes(s.code)
+                  ),
+                ].map((s, i) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: 5,
+                    }}
+                  >
+                    <span className="std-ss">
+                      <NavLink
+                        to={`/Subjects/${s.code}`}
+                        className="st-sub-item"
+                      >
+                        {s.label}
+                      </NavLink>
+                      <div
+                        className="ds -s"
+                        onClick={async () => {
+                          //console.log(s)
+                          let { errors, data } = await LoadBE(
+                            `mutation{studentAddSubject(admissionNumber: ${adm}, subject: "${s.code}"){label}}`
+                          )
+                          if (errors) {
+                            alert("Subject not Added")
+                          } else {
+                            loadEverything()
+                            alert("Subject Added")
+                          }
+                        }}
+                      >
+                        <PlusCircledIcon
+                          style={{
+                            marginRight: 2,
+                            marginLeft: 1,
+                          }}
+                        />
+                      </div>
+                    </span>
+                    {i <
+                      [
+                        ...subj.filter(
+                          s =>
+                            ![...compsubjects, ...student.subjects]
+                              .map(st => st.code)
+                              .includes(s.code)
+                        ),
+                      ].length -
+                        1 &&
+                      (i ===
+                      [
+                        ...subj.filter(
+                          s =>
+                            ![...compsubjects, ...student.subjects]
+                              .map(st => st.code)
+                              .includes(s.code)
+                        ),
+                      ].length -
+                        2 ? (
+                        <div style={{ margin: "0 3px" }}>&</div>
+                      ) : (
+                        `, `
+                      ))}
+                  </div>
+                ))}
               </div>
             </div>
 
