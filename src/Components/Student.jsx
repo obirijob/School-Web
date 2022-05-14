@@ -24,6 +24,7 @@ function Student() {
     myClass()
     classes()
     loadCSubjects()
+    loadCohorts()
   }
 
   const [student, setStudent] = useState(null)
@@ -33,6 +34,21 @@ function Student() {
   const [level, setLevel] = useState(null)
   const [compsubjects, setCompsubjects] = useState([])
   const [subj, setSubj] = useState([])
+  const [showCohort, setShowCohort] = useState(false)
+  const [cohorts, setCohorts] = useState([])
+  const [selCohort, setSelCohort] = useState(null)
+
+  async function loadCohorts() {
+    let { data } = await LoadBE(`{
+        cohorts{
+            id
+            label
+        }
+    }`)
+    if (data) {
+      setCohorts(data.cohorts)
+    }
+  }
 
   async function loadStudent() {
     let { errors, data } = await LoadBE(`{
@@ -53,6 +69,10 @@ function Student() {
                     name
                     admissionNumber
                   }
+              }
+              cohorts{
+                label
+                id
               }
           }
       }`)
@@ -169,6 +189,68 @@ function Student() {
               <button>Assign</button>
             </form>
           </Modal>
+          <Modal
+            title="Add to Cohort"
+            shown={showCohort}
+            hide={() => setShowCohort(false)}
+          >
+            <form
+              onSubmit={e => {
+                e.preventDefault()
+              }}
+            >
+              <div className="input">
+                <label htmlFor="acoh">Select Cohort</label>
+                <select
+                  name=""
+                  id="acoh"
+                  onChange={e => setSelCohort(e.target.value)}
+                >
+                  <option value="">Select cohort...</option>
+                  {cohorts.map(c => (
+                    <option value={c.id}>{c.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="options">
+                <button
+                  onClick={async () => {
+                    let { errors, data } = await LoadBE(`mutation{
+                    registerStudentInCohort(cohort: ${selCohort}, student: ${adm}){
+                      name
+                      cohorts{
+                        label
+                      }
+                    }
+                  }`)
+                    if (errors)
+                      alert(
+                        `Failed to register student\n${errors.map(
+                          e => e.message
+                        )}`
+                      )
+                    if (data) {
+                      let { name, cohorts } = data.registerStudentInCohort
+                      alert(
+                        `${name.toUpperCase()} has been successfuly Added to Cohort.\nCurrent registered cohorts are: \n${cohorts.map(
+                          c => c.label
+                        )}`
+                      )
+                    }
+                  }}
+                  className="option"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PlusCircledIcon style={{ marginRight: 5 }} />
+                  Add to Cohort
+                </button>
+              </div>
+            </form>
+          </Modal>
           <div className="title" style={{ textTransform: "capitalize" }}>
             {student.name.toLowerCase()} -{" "}
             {student.admissionNumber.toString().padStart(4, 0)}
@@ -213,9 +295,17 @@ function Student() {
               ) : (
                 <>Not in Any Class</>
               )}
+
               <div className="options">
                 <button className="option" onClick={() => setAssign(true)}>
                   Assign Class
+                </button>
+                <button
+                  className="option"
+                  style={{ margin: "0 5px" }}
+                  onClick={() => setShowCohort(true)}
+                >
+                  Add to Cohort
                 </button>
               </div>
               <div className="subtitle" style={{ margin: "20px 0 10px 0" }}>

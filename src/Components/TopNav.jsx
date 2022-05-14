@@ -52,6 +52,9 @@ function TopNav({ loggedAs, reloadAuth }) {
         <NavLink className="link" to="/Grades">
           Grades
         </NavLink>
+        <NavLink className="link" to="/Cohorts">
+          Cohorts
+        </NavLink>
       </div>
       <div className="user" onClick={() => setDropdown(!dropdown)}>
         <div className="icon">

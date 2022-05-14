@@ -12,6 +12,8 @@ function Classes() {
   const [classes, setClasses] = useState([])
   const [search, setSearch] = useState("")
   const [add, setAdd] = useState(false)
+  const [label, setLabel] = useState("")
+  const [level, setLevel] = useState(1)
 
   async function loadClasses() {
     let { errors, data } = await LoadBE(`{
@@ -40,7 +42,49 @@ function Classes() {
           <span>Add a Class</span>
         </div>
       </div>
-      <Modal title="Add a Class" shown={add} hide={() => setAdd(false)}></Modal>
+      <Modal title="Add a Class" shown={add} hide={() => setAdd(false)}>
+        <form
+          onSubmit={async e => {
+            e.preventDefault()
+            let { errors } = await LoadBE(`mutation{
+              addClass(label: "${label}", level: ${level}){
+                label
+              }
+            }`)
+            if (errors) alert("Failed to add Class\n" + errors.toString())
+            else {
+              loadClasses()
+              alert("Class Added")
+            }
+          }}
+        >
+          <div className="input">
+            <label htmlFor="clabel">Label</label>
+            <input
+              type="text"
+              id="clabel"
+              placeholder="e.g. Form One"
+              required
+              onInput={e => setLabel(e.target.value)}
+            />
+          </div>
+          <div className="input">
+            <label htmlFor="clevel">Level</label>
+            <select
+              onChange={e => setLevel(e.target.value)}
+              name=""
+              id="clevel"
+              placeholder="e.g. 2"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <button>Save Class</button>
+        </form>
+      </Modal>
       <div className="list">
         {classes
           .filter(

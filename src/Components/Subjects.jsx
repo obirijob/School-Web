@@ -2,12 +2,16 @@ import { ClipboardCopyIcon, PlusIcon } from "@radix-ui/react-icons"
 import React, { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import LoadBE from "../Helpers/LoadBE"
+import Modal from "./Modal"
 import Search from "./Search"
 
 function Subjects() {
   const [search, setSearch] = useState("")
   const [add, setAdd] = useState(false)
   const [subjects, setSubjects] = useState([])
+  const [compulsory, setCompulsory] = useState(false)
+  const [category, setCategory] = useState("")
+  const [label, setLabel] = useState("")
 
   useEffect(() => {
     loadSubjects()
@@ -30,6 +34,60 @@ function Subjects() {
           <span>Add Subject</span>
         </div>
       </div>
+      <Modal shown={add} title="Add Subject" hide={() => setAdd(false)}>
+        <form
+          onSubmit={async e => {
+            e.preventDefault()
+            let { errors } = await LoadBE(`mutation{
+              addSubject(label: "${label}", category: "${category}", compulsory: ${compulsory}){
+                label
+              }
+            }`)
+            if (errors) {
+              console.log(errors)
+              alert("Failed to Add Subject\n" + errors.toString())
+            } else {
+              loadSubjects()
+              alert("Subject Added")
+            }
+          }}
+        >
+          <div className="input">
+            <label htmlFor="slabel">Label</label>
+            <input
+              onInput={e => setLabel(e.target.value)}
+              type="text"
+              id="slabel"
+              placeholder="e.g Mathematics"
+              required
+            />
+          </div>
+          <div className="input">
+            <label htmlFor="scategory">Category</label>
+            <select
+              onChange={e => setCategory(e.target.value)}
+              name=""
+              id="scategory"
+            >
+              <option value="Sciences">Sciences</option>
+              <option value="Humanities">Humanitites</option>
+              <option value="Humanities">Languages</option>
+              <option value="Humanities">Arts</option>
+              <option value="Humanities">Technical Subjects</option>
+            </select>
+          </div>
+          <div className="input">
+            <label htmlFor="scompulsory">Compulsory?</label>
+            <input
+              onInput={e => setCompulsory(e.target.checked)}
+              type="checkbox"
+              name=""
+              id="scompulsory"
+            />
+          </div>
+          <button>Add Subject</button>
+        </form>
+      </Modal>
       <div className="list">
         {subjects
           .filter(
