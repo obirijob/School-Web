@@ -296,7 +296,7 @@ function Student() {
                 <>Not in Any Class</>
               )}
 
-              <div className="options">
+              <div className="options" style={{ display: "flex" }}>
                 <button className="option" onClick={() => setAssign(true)}>
                   Assign Class
                 </button>
@@ -307,6 +307,9 @@ function Student() {
                 >
                   Add to Cohort
                 </button>
+                <NavLink to="performance" className="option">
+                  <button>Performance Report</button>
+                </NavLink>
               </div>
               <div className="subtitle" style={{ margin: "20px 0 10px 0" }}>
                 Subjects Taken ({[...compsubjects, ...student.subjects].length})

@@ -69,11 +69,11 @@ function Subjects() {
               name=""
               id="scategory"
             >
-              <option value="Sciences">Sciences</option>
-              <option value="Humanities">Humanitites</option>
-              <option value="Humanities">Languages</option>
-              <option value="Humanities">Arts</option>
-              <option value="Humanities">Technical Subjects</option>
+              <option value="sciences">Sciences</option>
+              <option value="humanities">Humanitites</option>
+              <option value="languages">Languages</option>
+              <option value="arts">Arts</option>
+              <option value="technical">Technical Subjects</option>
             </select>
           </div>
           <div className="input">

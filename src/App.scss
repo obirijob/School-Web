@@ -79,3 +79,36 @@ a {
 .content {
   padding: 10px;
 }
+
+.res {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.results {
+  border: solid 1.5px black;
+  border-radius: 5px;
+  box-shadow: 0 0 20px black, inset 0 0 10px black;
+  background: white;
+  // width: 600px;
+  // height: 1754px;
+  margin: 20px 0;
+  padding: 10px;
+}
+
+table {
+  .title-row {
+    background: black;
+    color: white;
+    td {
+      padding: 5px;
+    }
+  }
+  td {
+    padding: 5px;
+  }
+  tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.093);
+  }
+}

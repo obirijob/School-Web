@@ -1,0 +1,31 @@
+.cohort-over {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px;
+  //   border: solid 1.5px $black;
+  box-shadow: $dark 0 0 50px;
+  background: $white;
+  padding: 10px;
+  border-radius: 10px;
+  gap: 10px;
+  .term {
+    flex: 1;
+    // background: transparentize($color: $dark, $amount: 0.7);
+    box-shadow: inset $dark 0 0 100px, $dark 0 0 20px;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: 330px;
+    .coh-title {
+      font-weight: bolder;
+      font-size: 20px;
+      margin: 5px 0;
+    }
+    .coh-fees {
+      font-size: 40px;
+      text-align: end;
+    }
+  }
+}

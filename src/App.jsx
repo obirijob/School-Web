@@ -11,6 +11,9 @@ import Student from "./Components/Student"
 import Subjects from "./Components/Subjects"
 import Grades from "./Components/Grades"
 import Cohorts from "./Components/Cohorts"
+import SClass from "./Components/SClass"
+import Cohort from "./Components/Cohort"
+import StudentPerformance from "./Components/StudentPerformance"
 
 function App() {
   const [loggedAs, setLoggedAs] = useState("none")
@@ -37,11 +40,18 @@ function App() {
             <Routes>
               <Route exact path="Students" element={<Students />} />
               <Route exact path="Students/:adm" element={<Student />} />
+              <Route
+                exact
+                path="Students/:adm/performance"
+                element={<StudentPerformance />}
+              />
               <Route exact path="Parents" element={<Parents />} />
               <Route exact path="Classes" element={<Classes />} />
+              <Route exact path="Classes/:level" element={<SClass />} />
               <Route exact path="Subjects" element={<Subjects />} />
               <Route exact path="Grades" element={<Grades />} />
               <Route exact path="Cohorts" element={<Cohorts />} />
+              <Route exact path="Cohort/:id" element={<Cohort />} />
             </Routes>
           </div>
         </BrowserRouter>
