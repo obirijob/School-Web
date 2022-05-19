@@ -34,9 +34,9 @@ function TopNav({ loggedAs, reloadAuth }) {
         <DesktopIcon style={{ transform: "scale(2)" }} />
       </div>
       <div className="links">
-        <NavLink className="link" to="/">
+        {/* <NavLink className="link" to="/">
           Dashboard
-        </NavLink>
+        </NavLink> */}
         <NavLink className="link" to="/Students">
           Students
         </NavLink>
